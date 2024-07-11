@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import org.valkyrienskies.tournament.blockentity.*
 import org.valkyrienskies.tournament.blockentity.explosive.ExplosiveBlockEntity
+import org.valkyrienskies.tournament.blockentity.render.JetBlockEntityRenderer
 import org.valkyrienskies.tournament.blockentity.render.PropellerBlockEntityRender
 import org.valkyrienskies.tournament.blockentity.render.SensorBlockEntityRender
 import org.valkyrienskies.tournament.registry.DeferredRegister
@@ -23,6 +24,13 @@ object TournamentBlockEntities {
 
     private val renderers = mutableListOf<RendererEntry<*>>()
 
+    /* ================================================================== */
+    val JET                 = TournamentBlocks.SENSOR
+        .withBE(::JetBlockEntity)
+        .byName ("jet")
+        .withRenderer {
+            JetBlockEntityRenderer()
+        }
     /* ================================================================== */
     val CONNECTOR           = TournamentBlocks.CONNECTOR
         .withBE(::ConnectorBlockEntity)

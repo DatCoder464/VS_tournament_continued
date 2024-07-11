@@ -1,6 +1,9 @@
 package org.valkyrienskies.tournament
 
+import com.mojang.logging.LogUtils
+import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import org.valkyrienskies.core.api.ships.getAttachment
@@ -12,6 +15,7 @@ import org.valkyrienskies.tournament.util.extension.with
 
 object TournamentMod {
     const val MOD_ID = "vs_tournament"
+    val LOGGER = LogUtils.getLogger()
 
     @JvmStatic
     fun init() {
@@ -21,6 +25,19 @@ object TournamentMod {
         TournamentItems.register()
         TournamentWeights.register()
         TournamentTriggers.init()
+
+        fun loadFile(name: String): String {
+            val content: StringBuilder = StringBuilder()
+            val reader = Minecraft.getInstance().resourceManager.getResource(
+                ResourceLocation(MOD_ID, name)
+            ).get().openAsReader()
+            val lines = reader.lines()
+            reader.close()
+            lines.forEach { line -> content.append(line).append("\n")}
+            return content.toString()
+        }
+
+        LOGGER.info()
 
         VSEvents.shipLoadEvent.on { e ->
             val ship = e.ship

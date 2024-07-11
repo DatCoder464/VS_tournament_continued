@@ -41,6 +41,11 @@ subprojects {
             name = "ParchmentMC"
             url = "https://maven.parchmentmc.org"
         }
+        maven {
+            name = "alex's repo"
+            url = uri("http://207.180.202.42:8080/libs")
+            allowInsecureProtocol = true
+        }
     }
 
     dependencies {
@@ -53,6 +58,10 @@ subprojects {
 
         implementation("org.joml:joml:1.10.4") { transitive = false }
         implementation("org.joml:joml-primitives:1.10.0") { transitive = false }
+
+        implementation("me.alex_s168:meshlib:0.7h1")
+        implementation("me.alex_s168:mathlib:0.5h6")
+
     }
 
     checkstyle {
